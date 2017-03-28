@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head th:include="fragments/head::htmlhead"></head>
+    <script th:inline="javascript">
+    	window.onload=function(){
+    		$("title").text("Fate");
+    		$("#nav-login").attr("class","active");
+    	}
+    </script>
+    <body>
+    	<div th:replace="fragments/header :: header">...</div>
+    	<canvas id="c"></canvas><script th:src="@{js/background.js}"></script>
+    	<div class="container text-center col-xs-2 col-xs-offset-5">
+    	    <br/><h3>登入Fate网络</h3>
+	        <div th:if="${param.error}">
+	        	无效的用户名-密码组合</div>
+	        <form id="login-form" th:action="@{/login}" method="post">
+	            <div><label><input type="text" name="username" placeholder="账号"/> </label></div>
+	            <div><label><input type="password" name="password" placeholder="密码"/> </label></div>
+	        	<a class="col-xs-6" onclick="$('#login-form').submit()" href="#">登入</a>
+	        	<a class="col-xs-6" th:href="@{register}">注册</a>
+	        </form>
+	    </div>
+    </body>
+</html>

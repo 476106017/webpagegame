@@ -1,0 +1,77 @@
+@CHARSET "UTF-8";
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.pop:hover .popover{
+	display: block;
+}
+
+hr{height:1px;border:none;border-top:1px solid #ccccff;}
+
+.fate-item-box{
+	border:2px solid #ccc;
+	height: 128px;
+	width:480px;
+	padding-top: 8px;
+	padding-top: 8px;
+	overflow:hidden
+}
+
+.fate-items{
+	font-size: 36px;
+	margin-left: 20px;
+	letter-spacing: 16px;
+}
+
+.fate-items i:HOVER {
+	text-shadow:2px 2px 5px #000;
+}
+
+#map-container{
+	width:760px;
+	height:550px;
+}
+
+#map{
+	background-color: #020;
+}
+
+#map-back{
+	background-image:url("../img/starry.jpg");
+	background-size:100%;
+	display:inline-block;
+	width: 550px;
+	height: 550px;
+}
+
+#map-panel{
+	background-color:#ddd;
+	float:right;
+	width:200px;
+	height:550px;
+}
+
+.tile{
+	border:1px solid #ccc;
+	float:left;
+	height: 50px;
+	width: 50px;}
+
+.tile-fore{
+	height: 48px;
+	width: 48px;
+	margin: 0px;}
+	
+.tile-back{
+	height: 48px;
+	width: 48px;
+	margin: 0px;}
+
+.tile1{
+	background-color: #0c0;
+}
+
+.tile1001{
+	background-color: #000;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head th:include="fragments/head::htmlhead"></head>
+    <script th:inline="javascript">
+    	window.onload=function(){
+    		$("title").text("Fate");
+    		$("#nav-index").attr("class","active");
+    		if([[${param.logout}]]);
+    			//LayoutCommon.showMessage("用户已登出！")
+    		else if([[${param.register}]]);
+    			//LayoutCommon.showMessage("欢迎新用户！")
+    	}
+    </script>
+    <body> 
+    	<div th:replace="fragments/header :: header">...</div>
+    	<canvas id="c"></canvas><script th:src="@{js/background.js}"></script>
+    	<div class="container">
+    		<br/><br/><br/>
+    		
+
+			<div class="row heading">
+				<div class="col-sm-6">
+					<h1>Fate</h1><hr/>
+					<h4 class="intro">What Rogulike Should Like</h4></div>
+				<div class="col-sm-6" sec:authorize="isAuthenticated()">
+					<div class="col-sm-12">
+						<h1 class="col-sm-2 text-muted text-right">HP&nbsp;</h1>
+						<div class="col-sm-10">
+							<h1>
+								<i th:each="str,iStat:${hpBarStr}" th:if="${iStat.index lt 6}" th:class="${str}"/>
+							</h1><h1>
+								<i th:each="str,iStat:${hpBarStr}" th:if="${iStat.index ge 6}" th:class="${str}"/>
+							</h1></div></div>
+					<div class="col-sm-10 fate-item-box flash-box">
+						<h2 class="fate-items"><i th:each="str,iStat:${buffs}" th:if="${iStat.index lt 16}"
+							th:class="${'glyphicon fate-status-'+str}"/></h2></div></div>
+				<div class="col-sm-6" sec:authorize="isAnonymous()">
+					<h3>你还没有一个游玩的账号！</h3>
+					<p class="intro">开发者立志创造一个拥有强大Rogulike核心的在线网页游戏，希望你的参与。</p>
+				</div>
+		</div></div>
+        
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+		            </div>
+		            <div class="modal-body">在这里添加一些文本</div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+		                <button type="button" class="btn btn-primary">提交更改</button>
+		            </div>
+		        </div><!-- /.modal-content -->
+		    </div><!-- /.modal -->
+		</div>
+    </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head th:include="fragments/head::htmlhead"></head>
+	<script th:src="@{js/addons/map.js}"></script>
+    <script th:inline="javascript">
+    	window.onload=function(){
+    		$("title").text("Fate");
+    		$("#nav-map").attr("class","active");
+    		$("#map-back").css("padding",[[${(5-sight)*50}]]);
+    		$("#map").css({
+    			"width":[[${(sight*2+1)*50}]],
+    			"height":[[${(sight*2+1)*50}]]}
+    		);
+    		$(".tile").mousedown(function(){
+    			flashBoxBinding();
+    			var index=parseInt($(this).attr("id"));
+    			var userX=[[${userTile.getX()}]];
+    			var userY=[[${userTile.getY()}]];
+    			var XY = clickedXY(userX,userY,[[${sight}]],index);
+    			if(boxBinded==0){
+	    			$("#map-panel").html("I：" + [[${userTile.getZ()}]]
+	    				+ "<br/>X：" + XY[0] + "<br/>Y："+ XY[1]);
+	    			if($(this).children(".tile-fore").length>0)
+	    				$("#map-panel").append("<br/>目标："+getTypeName(
+	    					$(this).children(".tile-fore").attr("tile-type")));
+	    			if($(this).children(".tile-back").length>0)
+	    				$("#map-panel").append("<br/>场景："+getTypeName(
+	    					$(this).children(".tile-back").attr("tile-type")));
+	    		}
+    			else if(boxBinded==1)$("#map-panel").html("请选择！");
+    			
+    		});
+    	}
+    </script>
+    <body> 
+    	<div th:replace="fragments/header :: header">...</div>
+    	<div class="container"><br/><br/><br/><div id="map-container" class="center-block">
+	    	<div id="map-back"><div id="map">
+	    		<div class="tile flash-box" th:each="tiles,mapStat:${map}" th:id="${mapStat.index}">
+	    			<div th:class="${'tile-fore tile'+tile.getType()}" th:if="${tile.getType() lt 1000}"
+	    			 	th:each="tile,tileStat:${tiles}" th:attr="tile-type=${tile.getType()}"></div>
+		    		<div th:class="${'tile-back tile'+tile.getType()}" th:if="${tile.getType() ge 1000}"
+		    			th:each="tile,tileStat:${tiles}" th:attr="tile-type=${tile.getType()}"></div></div></div></div>
+    		<div id="map-panel"></div>
+    	</div></div>
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+		            </div>
+		            <div class="modal-body">在这里添加一些文本</div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+		                <button type="button" class="btn btn-primary">提交更改</button>
+		            </div>
+		        </div><!-- /.modal-content -->
+		    </div><!-- /.modal -->
+		</div>
+    </body>
+</html>

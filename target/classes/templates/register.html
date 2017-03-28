@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head th:include="fragments/head::htmlhead"></head>
+    <script th:inline="javascript">
+    	window.onload=function(){
+    		$("title").text("Fate");
+    		$("#nav-register").attr("class","active");
+    	}
+    </script>
+    <body>
+    	<div th:replace="fragments/header :: header">...</div>
+    	<canvas id="c"></canvas><script th:src="@{js/background.js}"></script>
+        <!--注意这里的th:object="${user}"-->
+        <div class="container text-center col-xs-2 col-xs-offset-5">
+    	    <br/><h3>注册Fate网络</h3>
+		    <form id="register-form" th:action="@{/registerSubmit}" th:object="${user}" method="post">
+		        <input type="text" th:field="*{username}" placeholder="账号"/>
+		        <label for="role">身份选择 </label>
+		        <select th:field="*{role}">
+		            <option value="ROLE_USER">人类</option>
+		            <option value="ROLE_ADMIN">神</option></select>
+		        <i class="glyphicon glyphicon-info-sign" data-html="true" 
+		        	data-original-title="人类三红心&lt;br/&gt;神十二蓝心"></i>
+		        <input type="password" th:field="*{password}" placeholder="密码"/>
+		        <a class="col-xs-6" onclick="$('#register-form').reset()" href="#">重置</a>
+		        <a class="col-xs-6" onclick="$('#register-form').submit()" href="#">提交</a>
+		    </form>
+		</div>
+    </body>
+</html>  
